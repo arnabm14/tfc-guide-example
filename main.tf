@@ -1,28 +1,23 @@
-provider "aws" {
-  region = var.region
+terraform {
+  required_providers {
+    snowflake = {
+      source  = "Snowflake-Labs/snowflake"
+      version = "~> 0.35"
+    }
+  }
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
+provider "snowflake" {
+  role  = "SYSADMIN"
 }
 
-resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
+resource "snowflake_database" "db" {
+  name     = "TF_DEMO"
+}
 
-  tags = {
-    Name = var.instance_name
-  }
+resource "snowflake_warehouse" "warehouse" {
+  name           = "TF_DEMO"
+  warehouse_size = "large"
+
+  auto_suspend = 60
 }
