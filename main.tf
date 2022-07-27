@@ -64,7 +64,7 @@ provider "snowflake" {
     }
     resource "snowflake_user" "user" {
         provider          = snowflake.security_admin
-        name              = "tf_demo_2_user"
+        name              = "tf_demo_user"
         default_warehouse = snowflake_warehouse.warehouse.name
         default_role      = snowflake_role.role.name
         default_namespace = "${snowflake_database.db.name}.${snowflake_schema.schema.name}"
