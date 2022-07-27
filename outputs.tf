@@ -1,8 +1,6 @@
-output "instance_ami" {
-  value = aws_instance.ubuntu.ami
+output "snowflake_svc_public_key" {
+    value = tls_private_key.svc_key.public_key_pem
 }
-
-output "instance_arn" {
-  value = aws_instance.ubuntu.arn
+output "snowflake_svc_private_key" {
+    value = tls_private_key.svc_key.private_key_pem
 }
-
