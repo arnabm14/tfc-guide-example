@@ -12,11 +12,11 @@ provider "snowflake" {
 }
 
 resource "snowflake_database" "db" {
-  name     = "TF_DEMO"
+  name     = "TF_DEMO_2"
 }
 
 resource "snowflake_warehouse" "warehouse" {
-  name           = "TF_DEMO"
+  name           = "TF_DEMO_2"
   warehouse_size = "large"
 
   auto_suspend = 60
@@ -29,7 +29,7 @@ provider "snowflake" {
     }
     resource "snowflake_role" "role" {
         provider = snowflake.security_admin
-        name     = "TF_DEMO_SVC_ROLE"
+        name     = "TF_DEMO_2_SVC_ROLE"
     }
     resource "snowflake_database_grant" "grant" {
         provider          = snowflake.security_admin
@@ -40,7 +40,7 @@ provider "snowflake" {
     }
     resource "snowflake_schema" "schema" {
         database   = snowflake_database.db.name
-        name       = "TF_DEMO"
+        name       = "TF_DEMO_2"
         is_managed = false
     }
     resource "snowflake_schema_grant" "grant" {
@@ -64,7 +64,7 @@ provider "snowflake" {
     }
     resource "snowflake_user" "user" {
         provider          = snowflake.security_admin
-        name              = "tf_demo_user"
+        name              = "tf_demo_2_user"
         default_warehouse = snowflake_warehouse.warehouse.name
         default_role      = snowflake_role.role.name
         default_namespace = "${snowflake_database.db.name}.${snowflake_schema.schema.name}"
