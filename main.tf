@@ -40,7 +40,7 @@ provider "snowflake" {
         database_name     = snowflake_database.db.name
         privilege         = "USAGE"
         count = length(var.role_names)
-        roles             = [snowflake_role.role[count.index]]
+        roles             = [snowflake_role.role[0]]
         with_grant_option = false
     }
     resource "snowflake_schema" "schema" {
@@ -54,7 +54,7 @@ provider "snowflake" {
         schema_name       = snowflake_schema.schema.name
         privilege         = "USAGE"
         count = length(var.role_names)
-        roles             = [snowflake_role.role[count.index]]
+        roles             = [snowflake_role.role[0]]
         with_grant_option = false
     }
     resource "snowflake_warehouse_grant" "grant" {
@@ -62,7 +62,7 @@ provider "snowflake" {
         warehouse_name    = snowflake_warehouse.warehouse.name
         privilege         = "USAGE"
         count = length(var.role_names)
-        roles             = [snowflake_role.role[count.index]]
+        roles             = [snowflake_role.role[0]]
         with_grant_option = false
     }
     resource "tls_private_key" "svc_key" {
@@ -74,13 +74,13 @@ provider "snowflake" {
         name              = "tf_demo_user"
         default_warehouse = snowflake_warehouse.warehouse.name
         count = length(var.role_names)
-        default_role      = snowflake_role.role[count.index]
+        default_role      = snowflake_role.role[0]
         default_namespace = "${snowflake_database.db.name}.${snowflake_schema.schema.name}"
         rsa_public_key    = substr(tls_private_key.svc_key.public_key_pem, 27, 398)
     }
     resource "snowflake_role_grants" "grants" {
         provider  = snowflake.security_admin
         count = length(var.role_names)
-        role_name = snowflake_role.role[count.index]
-        users     = [snowflake_user.user[count.index]]
+        role_name = snowflake_role.role[0]
+        users     = [snowflake_user.user[0]]
     }
