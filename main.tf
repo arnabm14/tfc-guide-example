@@ -12,12 +12,6 @@ provider "snowflake" {
   role  = "SYSADMIN"
   }
 
-  resource "snowflake_role" "role" {
-        provider = snowflake.sysadmin_admin
-        count = length(var.role_names)
-        name  = var.role_names[count.index]
-    }
-
   resource "snowflake_database" "db" {
     name     = "TF_DEMO_2"
   }
@@ -34,6 +28,13 @@ provider "snowflake" {
         alias = "security_admin"
         role  = "SECURITYADMIN"
     }
+
+      resource "snowflake_role" "role" {
+        provider = snowflake.security_admin
+        count = length(var.role_names)
+        name  = var.role_names[count.index]
+    }
+
     resource "snowflake_database_grant" "grant" {
         provider          = snowflake.security_admin
         database_name     = snowflake_database.db.name
