@@ -9,18 +9,24 @@ terraform {
 
 provider "snowflake" {
   role  = "SYSADMIN"
-}
+  }
 
-resource "snowflake_database" "db" {
-  name     = "TF_DEMO_2"
-}
+  resource "snowflake_role" "role" {
+        provider = snowflake.sysadmin_admin
+        count = length(var.role_names)
+        name  = var.role_names[count.index]
+    }
 
-resource "snowflake_warehouse" "warehouse" {
-  name           = "TF_DEMO_2"
-  warehouse_size = "large"
+  resource "snowflake_database" "db" {
+    name     = "TF_DEMO_2"
+  }
 
-  auto_suspend = 60
-}
+  resource "snowflake_warehouse" "warehouse" {
+    name           = "TF_DEMO_2"
+    warehouse_size = "large"
+
+    auto_suspend = 60
+  }
 
 
 provider "snowflake" {
