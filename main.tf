@@ -8,6 +8,7 @@ terraform {
 }
 
 provider "snowflake" {
+  alias = "sysadmin_admin"
   role  = "SYSADMIN"
   }
 
