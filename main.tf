@@ -82,5 +82,5 @@ provider "snowflake" {
         provider  = snowflake.security_admin
         count = length(var.role_names)
         role_name = snowflake_role.role[count.index]
-        users     = [snowflake_user.user.name]
+        users     = [snowflake_user.user[count.index]]
     }
