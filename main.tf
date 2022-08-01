@@ -11,7 +11,7 @@ provider "snowflake" {
   role  = "SYSADMIN"
   }
 
-  resource "snowflake_role" "role" {
+  resource "snowflake_role_sysadmin" "role" {
         provider = snowflake.sysadmin_admin
         count = length(var.role_names)
         name  = var.role_names[count.index]
@@ -33,7 +33,7 @@ provider "snowflake" {
         alias = "security_admin"
         role  = "SECURITYADMIN"
     }
-    resource "snowflake_role" "role" {
+    resource "snowflake_role_security_admin" "role" {
         provider = snowflake.security_admin
         name     = "TF_DEMO_2_SVC_ROLE"
     }
