@@ -41,14 +41,12 @@ resource "snowflake_warehouse" "S_PROD_WH" {
   initially_suspended = true
 }
 
-resource "snowflake_role" "DR_S_PROD_ADMIN" {
-  name    = "DR_S_PROD_ADMIN"
-  comment = "All priviledges on S_PROD_{SOURCE}"
-}
-
 provider "snowflake" {
   alias = "security_admin"
   role="SECURITYADMIN"
   
 }
-
+resource "snowflake_role" "DR_S_PROD_ADMIN" {
+  name    = "DR_S_PROD_ADMIN"
+  comment = "All priviledges on S_PROD_{SOURCE}"
+}
