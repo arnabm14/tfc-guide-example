@@ -42,8 +42,8 @@ resource "snowflake_warehouse" "S_PROD_WH" {
 }
 
 provider "snowflake" {
-  alias = "security_admin"
-  role="SECURITYADMIN"
+  alias = "account_admin"
+  role="ACCOUNTADMIN"
   
 }
 resource "snowflake_role" "DR_S_PROD_ADMIN" {
