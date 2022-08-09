@@ -174,7 +174,7 @@ resource "snowflake_database_grant" "S_PROD_EBIZ_GRANT" {
   with_grant_option = true
 }
 
-resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT" {
+resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_ALL" {
   warehouse_name = "S_PROD_WH"
   privilege      = "ALL"
 
@@ -185,7 +185,7 @@ resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT" {
   with_grant_option = true
 }
 
-resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT" {
+resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_USAGE" {
   warehouse_name = "S_PROD_WH"
   privilege      = "USAGE"
 
@@ -196,7 +196,7 @@ resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT" {
   with_grant_option = true
 }
 
-resource "snowflake_schema_grant" "STAGE_GRANT" {
+resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
   database_name = "S_PROD_EBIZ"
   schema_name   = "STAGE"
 
@@ -205,7 +205,7 @@ resource "snowflake_schema_grant" "STAGE_GRANT" {
   with_grant_option = true
 }
 
-resource "snowflake_schema_grant" "STAGE_GRANT" {
+resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
   database_name = "S_PROD_EBIZ"
   schema_name   = "STAGE"
 
@@ -214,7 +214,7 @@ resource "snowflake_schema_grant" "STAGE_GRANT" {
   with_grant_option = true
 }
 
-resource "snowflake_schema_grant" "PSA_GRANT" {
+resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
   database_name = "S_PROD_EBIZ"
   schema_name   = "PSA"
 
@@ -223,7 +223,7 @@ resource "snowflake_schema_grant" "PSA_GRANT" {
   with_grant_option = true
 }
 
-resource "snowflake_schema_grant" "PSA_GRANT" {
+resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
   database_name = "S_PROD_EBIZ"
   schema_name   = "PSA"
 
