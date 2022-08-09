@@ -168,7 +168,7 @@ resource "snowflake_role_grants" "AR_S_PROD_WH_GRANTS" {
 resource "snowflake_database_grant" "S_PROD_EBIZ_GRANT" {
   database_name = "S_PROD_EBIZ"
 
-  privilege = "ALL"
+  privilege = "ALL[PRIVILEGES]"
   roles     = ["DR_S_PROD_ADMIN",]
 
   with_grant_option = true
@@ -176,7 +176,7 @@ resource "snowflake_database_grant" "S_PROD_EBIZ_GRANT" {
 
 resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_ALL" {
   warehouse_name = "S_PROD_WH"
-  privilege      = "ALL"
+  privilege      = "ALL[PRIVILEGES]"
 
   roles = [
     "AR_S_PROD_WH_ADMIN",
@@ -200,7 +200,7 @@ resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
   database_name = "S_PROD_EBIZ"
   schema_name   = "STAGE"
 
-  privilege = "SELECT"
+  privilege = "USAGE"
   roles     = ["DR_S_PROD_EBIZ_RO", ]
   with_grant_option = true
 }
@@ -209,7 +209,7 @@ resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
   database_name = "S_PROD_EBIZ"
   schema_name   = "STAGE"
 
-  privilege = "ALL"
+  privilege = "ALL[PRIVILEGES]"
   roles     = ["DR_S_PROD_EBIZ_RW", ]
   with_grant_option = true
 }
@@ -218,7 +218,7 @@ resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
   database_name = "S_PROD_EBIZ"
   schema_name   = "PSA"
 
-  privilege = "SELECT"
+  privilege = "USAGE"
   roles     = ["DR_S_PROD_EBIZ_RO", ]
   with_grant_option = true
 }
@@ -227,7 +227,7 @@ resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
   database_name = "S_PROD_EBIZ"
   schema_name   = "PSA"
 
-  privilege = "ALL"
+  privilege = "ALL[PRIVILEGES]"
   roles     = ["DR_S_PROD_EBIZ_RW", ]
   with_grant_option = true
 }
