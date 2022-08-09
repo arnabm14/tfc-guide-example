@@ -17,6 +17,7 @@ resource "snowflake_database" "S_PROD_EBIZ" {
 }
 
 provider "snowflake" {
+  alias = "security_admin"
   role="SECURITYADMIN"
   
 }
