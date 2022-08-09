@@ -8,14 +8,14 @@ terraform {
 }
 
 provider "snowflake" {
-  role="SYSADMIN"
+  role="ACCOUNTADMIN"
   
 }
-resource "snowflake_database" "S_PROD_EBIZ" {
-  name= "S_PROD_EBIZ"
-  comment = "Production environemtn for EBIZ data source"
-  data_retention_time_in_days = 1
-}
+# resource "snowflake_database" "S_PROD_EBIZ" {
+#   name= "S_PROD_EBIZ"
+#   comment = "Production environemtn for EBIZ data source"
+#   data_retention_time_in_days = 1
+# }
 
 # resource "snowflake_user" "NI_Test" {
 #   name         = "NI_Test"
@@ -33,20 +33,22 @@ resource "snowflake_database" "S_PROD_EBIZ" {
 #   must_change_password = true
 # }
 
-resource "snowflake_warehouse" "S_PROD_WH" {
-  name           = "S_PROD_WH"
-  comment        = "Production warehouse"
-  warehouse_size = "xsmall"
-  auto_suspend = 60
-  initially_suspended = true
-}
+# resource "snowflake_warehouse" "S_PROD_WH" {
+#   name           = "S_PROD_WH"
+#   comment        = "Production warehouse"
+#   warehouse_size = "xsmall"
+#   auto_suspend = 60
+#   initially_suspended = true
+# }
+# resource "snowflake_role" "DR_S_PROD_ADMIN" {
+#   name    = "DR_S_PROD_ADMIN"
+#   comment = "All priviledges on S_PROD_{SOURCE}"
+# }
+
 
 provider "snowflake" {
-  alias = "account_admin"
-  role="ACCOUNTADMIN"
+  alias = "security_admin"
+  role="SECURITYADMIN"
   
 }
-resource "snowflake_role" "DR_S_PROD_ADMIN" {
-  name    = "DR_S_PROD_ADMIN"
-  comment = "All priviledges on S_PROD_{SOURCE}"
-}
+
