@@ -46,7 +46,7 @@ resource "snowflake_role" "DR_S_PROD_ADMIN" {
 }
 
 resource "snowflake_schema" "STAGE" {
-  database = "dbS_PROD_EBIZ"
+  database = "S_PROD_EBIZ"
   name     = "STAGE"
   comment  = "Staging schema"
 
