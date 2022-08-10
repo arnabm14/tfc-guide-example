@@ -21,7 +21,7 @@ resource "snowflake_user" "TF" {
   name         = "TF"
   login_name   = "TF"
   comment      = "TF Cloud user."
-  password     = "Mario@@140897"
+  password     = "Mario@@14089797"
   disabled     = false
   display_name = "TF"
   email        = "arnab.mondal@ni.com"
