@@ -30,7 +30,7 @@ resource "snowflake_user" "TF" {
 
   default_warehouse = "COMPUTE_WH"
   default_role      = "SYSADMIN"
-  must_change_password = true
+  must_change_password = false
 }
 
 # resource "snowflake_user" "NI_Test" {
