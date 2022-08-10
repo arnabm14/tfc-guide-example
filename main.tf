@@ -234,40 +234,48 @@ provider "snowflake" {
 }
 
 resource "snowflake_role" "DR_S_PROD_ADMIN" {
+  provider = snowflake.security_admin
   name    = "DR_S_PROD_ADMIN"
   comment = "All priviledges on S_PROD_{SOURCE}"
 }
 
 resource "snowflake_role" "FR_S_PROD_ADMIN" {
+  provider = snowflake.security_admin
   name    = "FR_S_PROD_ADMIN"
   comment = "Inherit priviledges from DR_S_PROD_ADMIN,AR_S_PROD_WH_ADMIN and FR_S_PROD_EBIZ_ENGINEER"
 }
 
 resource "snowflake_role" "AR_S_PROD_WH_ADMIN" {
+  provider = snowflake.security_admin
   name    = "AR_S_PROD_WH_ADMIN"
   comment = "All priviledges on S_PROD_WH"
 }
 resource "snowflake_role" "FR_S_PROD_EBIZ_ENGINEER" {
+  provider = snowflake.security_admin
   name    = "FR_S_PROD_EBIZ_ENGINEER"
   comment = "Inherits from DR_S_PROD_EBIZ_RW"
 }
 
 resource "snowflake_role" "DR_S_PROD_EBIZ_RW" {
+  provider = snowflake.security_admin
   name    = "DR_S_PROD_EBIZ_RW"
   comment = "All priviledges on PSA and Stage"
 }
 
 resource "snowflake_role" "DR_S_PROD_EBIZ_RO" {
+  provider = snowflake.security_admin
   name    = "DR_S_PROD_EBIZ_RO"
   comment = "Select priviledges on PSA and Stage"
 }
 
 resource "snowflake_role" "FR_S_PROD_EBIZ_ANALYST" {
+  provider = snowflake.security_admin
   name    = "FR_S_PROD_EBIZ_ANALYST"
   comment = "Inherits from DR_S_PROD_EBIZ_RO and AR_S_PROD_WH"
 }
 
 resource "snowflake_role" "AR_S_PROD_WH" {
+  provider = snowflake.security_admin
   name    = "AR_S_PROD_WH"
   comment = "Select priviledges on S_PROD_WH"
 }
