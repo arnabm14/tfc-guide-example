@@ -11,27 +11,29 @@ provider "snowflake" {
   role= "SYSADMIN"
   
 }
+
+# resource "snowflake_user" "TF" {
+#   name         = "TF"
+#   login_name   = "TF"
+#   comment      = "A Terraform Cloud account of snowflake."
+#   password     = "Mario@@1408"
+#   disabled     = false
+#   display_name = "TF"
+#   email        = "arnab.mondal@ni.com"
+#   first_name   = "T"
+#   last_name    = "F"
+
+#   default_warehouse = "COMPUTE_WH"
+#   default_role      = "SYSADMIN"
+#   must_change_password = false
+# }
+
 # resource "snowflake_database" "S_PROD_EBIZ" {
 #   name= "S_PROD_EBIZ"
 #   comment = "Production environemtn for EBIZ data source"
 #   data_retention_time_in_days = 1
 # }
 
-resource "snowflake_user" "TF" {
-  name         = "TF"
-  login_name   = "TF"
-  comment      = "A Terraform Cloud account of snowflake."
-  password     = "Mario@@1408"
-  disabled     = false
-  display_name = "TF"
-  email        = "arnab.mondal@ni.com"
-  first_name   = "T"
-  last_name    = "F"
-
-  default_warehouse = "COMPUTE_WH"
-  default_role      = "SYSADMIN"
-  must_change_password = false
-}
 
 # resource "snowflake_user" "NI_Test" {
 #   name         = "NI_Test"
