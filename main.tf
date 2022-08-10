@@ -59,45 +59,6 @@ resource "snowflake_warehouse" "S_PROD_WH" {
   initially_suspended = true
 }
 
-resource "snowflake_role" "DR_S_PROD_ADMIN" {
-  name    = "DR_S_PROD_ADMIN"
-  comment = "All priviledges on S_PROD_{SOURCE}"
-}
-
-resource "snowflake_role" "FR_S_PROD_ADMIN" {
-  name    = "FR_S_PROD_ADMIN"
-  comment = "Inherit priviledges from DR_S_PROD_ADMIN,AR_S_PROD_WH_ADMIN and FR_S_PROD_EBIZ_ENGINEER"
-}
-
-resource "snowflake_role" "AR_S_PROD_WH_ADMIN" {
-  name    = "AR_S_PROD_WH_ADMIN"
-  comment = "All priviledges on S_PROD_WH"
-}
-resource "snowflake_role" "FR_S_PROD_EBIZ_ENGINEER" {
-  name    = "FR_S_PROD_EBIZ_ENGINEER"
-  comment = "Inherits from DR_S_PROD_EBIZ_RW"
-}
-
-resource "snowflake_role" "DR_S_PROD_EBIZ_RW" {
-  name    = "DR_S_PROD_EBIZ_RW"
-  comment = "All priviledges on PSA and Stage"
-}
-
-resource "snowflake_role" "DR_S_PROD_EBIZ_RO" {
-  name    = "DR_S_PROD_EBIZ_RO"
-  comment = "Select priviledges on PSA and Stage"
-}
-
-resource "snowflake_role" "FR_S_PROD_EBIZ_ANALYST" {
-  name    = "FR_S_PROD_EBIZ_ANALYST"
-  comment = "Inherits from DR_S_PROD_EBIZ_RO and AR_S_PROD_WH"
-}
-
-resource "snowflake_role" "AR_S_PROD_WH" {
-  name    = "AR_S_PROD_WH"
-  comment = "Select priviledges on S_PROD_WH"
-}
-
 resource "snowflake_role_grants" "DR_S_PROD_ADMIN_GRANTS" {
   role_name = snowflake_role.DR_S_PROD_ADMIN.name
 
@@ -272,3 +233,41 @@ provider "snowflake" {
   
 }
 
+resource "snowflake_role" "DR_S_PROD_ADMIN" {
+  name    = "DR_S_PROD_ADMIN"
+  comment = "All priviledges on S_PROD_{SOURCE}"
+}
+
+resource "snowflake_role" "FR_S_PROD_ADMIN" {
+  name    = "FR_S_PROD_ADMIN"
+  comment = "Inherit priviledges from DR_S_PROD_ADMIN,AR_S_PROD_WH_ADMIN and FR_S_PROD_EBIZ_ENGINEER"
+}
+
+resource "snowflake_role" "AR_S_PROD_WH_ADMIN" {
+  name    = "AR_S_PROD_WH_ADMIN"
+  comment = "All priviledges on S_PROD_WH"
+}
+resource "snowflake_role" "FR_S_PROD_EBIZ_ENGINEER" {
+  name    = "FR_S_PROD_EBIZ_ENGINEER"
+  comment = "Inherits from DR_S_PROD_EBIZ_RW"
+}
+
+resource "snowflake_role" "DR_S_PROD_EBIZ_RW" {
+  name    = "DR_S_PROD_EBIZ_RW"
+  comment = "All priviledges on PSA and Stage"
+}
+
+resource "snowflake_role" "DR_S_PROD_EBIZ_RO" {
+  name    = "DR_S_PROD_EBIZ_RO"
+  comment = "Select priviledges on PSA and Stage"
+}
+
+resource "snowflake_role" "FR_S_PROD_EBIZ_ANALYST" {
+  name    = "FR_S_PROD_EBIZ_ANALYST"
+  comment = "Inherits from DR_S_PROD_EBIZ_RO and AR_S_PROD_WH"
+}
+
+resource "snowflake_role" "AR_S_PROD_WH" {
+  name    = "AR_S_PROD_WH"
+  comment = "Select priviledges on S_PROD_WH"
+}
