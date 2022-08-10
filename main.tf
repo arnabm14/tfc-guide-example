@@ -17,21 +17,21 @@ provider "snowflake" {
 #   data_retention_time_in_days = 1
 # }
 
-# resource "snowflake_user" "NI_Test" {
-#   name         = "NI_Test"
-#   login_name   = "NI_Test"
-#   comment      = "A NI Test user of snowflake."
-#   password     = "Changeafterlogin"
-#   disabled     = false
-#   display_name = "NI_Test"
-#   email        = "arnab.mondal@ni.com"
-#   first_name   = "NI"
-#   last_name    = "Test"
+resource "snowflake_user" "TF" {
+  name         = "TF"
+  login_name   = "TF"
+  comment      = "TF Cloud user."
+  password     = "Changeafterlogin"
+  disabled     = false
+  display_name = "TF"
+  email        = "arnab.mondal@ni.com"
+  first_name   = "T"
+  last_name    = "F"
 
-#   default_warehouse = "S_PROD_WH"
-#   default_role      = "FR_S_PROD_ADMIN"
-#   must_change_password = true
-# }
+  default_warehouse = "COMPUTE_WH"
+  default_role      = "SYSADMIN"
+  must_change_password = false
+}
 
 # resource "snowflake_warehouse" "S_PROD_WH" {
 #   name           = "S_PROD_WH"
