@@ -29,7 +29,7 @@ resource "snowflake_user" "NI_Test" {
   last_name    = "Test"
 
   default_warehouse = "S_PROD_WH"
-  default_role      = "DR_S_PROD_ADMIN"
+  default_role      = "FR_S_PROD_ADMIN"
   must_change_password = true
 }
 
@@ -87,9 +87,9 @@ resource "snowflake_role_grants" "DR_S_PROD_ADMIN_GRANTS" {
     "FR_S_PROD_ADMIN",
   ]
 
-  users = [
-    "NI_Test",
-  ]
+  # users = [
+  #   "NI_Test",
+  # ]
   
 }
 
@@ -100,9 +100,9 @@ resource "snowflake_role_grants" "AR_S_PROD_WH_ADMIN_GRANTS" {
     "FR_S_PROD_ADMIN",
   ]
 
-  users = [
-    "NI_Test",
-  ]
+  # users = [
+  #   "NI_Test",
+  # ]
 }
 
 resource "snowflake_role_grants" "FR_S_PROD_EBIZ_ENGINEER_GRANTS" {
@@ -136,9 +136,9 @@ resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RW_GRANTS" {
     "FR_S_PROD_EBIZ_ENGINEER",
   ]
 
-  users = [
-    "NI_Test",
-  ]
+  # users = [
+  #   "NI_Test",
+  # ]
 }
 
 resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RO_GRANTS" {
@@ -148,9 +148,9 @@ resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RO_GRANTS" {
     "FR_S_PROD_EBIZ_ANALYST",
   ]
 
-  users = [
-    "NI_Test",
-  ]
+  # users = [
+  #   "NI_Test",
+  # ]
 }
 
 resource "snowflake_role_grants" "AR_S_PROD_WH_GRANTS" {
@@ -160,9 +160,9 @@ resource "snowflake_role_grants" "AR_S_PROD_WH_GRANTS" {
     "FR_S_PROD_EBIZ_ANALYST",
   ]
 
-  users = [
-    "NI_Test",
-  ]
+  # users = [
+  #   "NI_Test",
+  # ]
 }
 
 resource "snowflake_database_grant" "S_PROD_EBIZ_GRANT" {
