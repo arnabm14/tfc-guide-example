@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "snowflake" {
-  role="SYSADMIN"
+  role="ACCOUNTADMIN"
   
 }
 # resource "snowflake_database" "S_PROD_EBIZ" {
@@ -17,21 +17,37 @@ provider "snowflake" {
 #   data_retention_time_in_days = 1
 # }
 
-resource "snowflake_user" "NI_Test" {
-  name         = "NI_Test"
-  login_name   = "NI_Test"
-  comment      = "A NI Test user of snowflake."
-  password     = "Changeafterlogin"
+resource "snowflake_user" "TF" {
+  name         = "TF"
+  login_name   = "TF"
+  comment      = "A Terraform Cloud account of snowflake."
+  password     = "Mario@@1408"
   disabled     = false
-  display_name = "NI_Test"
+  display_name = "TF"
   email        = "arnab.mondal@ni.com"
-  first_name   = "NI"
-  last_name    = "Test"
+  first_name   = "T"
+  last_name    = "F"
 
-  default_warehouse = "S_PROD_WH"
-  default_role      = "FR_S_PROD_ADMIN"
+  default_warehouse = "COMPUTE_WH"
+  default_role      = "SYSADMIN"
   must_change_password = true
 }
+
+# resource "snowflake_user" "NI_Test" {
+#   name         = "NI_Test"
+#   login_name   = "NI_Test"
+#   comment      = "A NI Test user of snowflake."
+#   password     = "Changeafterlogin"
+#   disabled     = false
+#   display_name = "NI_Test"
+#   email        = "arnab.mondal@ni.com"
+#   first_name   = "NI"
+#   last_name    = "Test"
+
+#   default_warehouse = "S_PROD_WH"
+#   default_role      = "FR_S_PROD_ADMIN"
+#   must_change_password = true
+# }
 
 # resource "snowflake_warehouse" "S_PROD_WH" {
 #   name           = "S_PROD_WH"
