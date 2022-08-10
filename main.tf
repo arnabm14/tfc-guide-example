@@ -146,6 +146,7 @@ resource "snowflake_role_grants" "AR_S_PROD_WH_GRANTS" {
 }
 
 resource "snowflake_database_grant" "S_PROD_EBIZ_GRANT" {
+  provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
 
   privilege = "OWNERSHIP"
@@ -155,6 +156,7 @@ resource "snowflake_database_grant" "S_PROD_EBIZ_GRANT" {
 }
 
 resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_ALL" {
+  provider = snowflake.security_admin
   warehouse_name = snowflake_warehouse.S_PROD_WH.name
   privilege      = "OWNERSHIP"
 
@@ -186,6 +188,7 @@ resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
 }
 
 resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
+  provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.STAGE.name
 
@@ -204,6 +207,7 @@ resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
 }
 
 resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
+  provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.PSA.name
 
