@@ -251,7 +251,7 @@ resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
 }
 
 resource "snowflake_schema" "STAGE" {
-  database = "S_PROD_EBIZ"
+  database = snowflake_database.S_PROD_EBIZ.name
   name     = "STAGE"
   comment  = "Staging schema"
 
@@ -259,7 +259,7 @@ resource "snowflake_schema" "STAGE" {
 }
 
 resource "snowflake_schema" "PSA" {
-  database = "S_PROD_EBIZ"
+  database = snowflake_database.S_PROD_EBIZ.name
   name     = "PSA"
   comment  = "Persistent staging schema"
   data_retention_days = 1
