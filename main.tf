@@ -17,11 +17,10 @@ resource "snowflake_database" "S_PROD_EBIZ" {
   data_retention_time_in_days = 1
 }
 
-
 resource "snowflake_user" "NI_Test" {
   name         = "NI_Test"
   login_name   = "NI_Test"
-  comment      = "A user of snowflake."
+  comment      = "A NI Test user of snowflake."
   password     = "Changeafterlogin"
   disabled     = false
   display_name = "NI_Test"
