@@ -17,6 +17,7 @@ provider "snowflake" {
 #   data_retention_time_in_days = 1
 # }
 
+
 # resource "snowflake_user" "NI_Test" {
 #   name         = "NI_Test"
 #   login_name   = "NI_Test"
