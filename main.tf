@@ -36,6 +36,7 @@ resource "snowflake_database" "S_PROD_EBIZ" {
 
 
 resource "snowflake_user" "NI_Test" {
+  provider = snowflake.security_admin
   name         = "NI_Test"
   login_name   = "NI_Test"
   comment      = "A NI Test user of snowflake."
