@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "snowflake" {
-  role="ACCOUNTADMIN"
+  role="SYSADMIN"
   
 }
 # resource "snowflake_database" "S_PROD_EBIZ" {
