@@ -36,20 +36,20 @@ resource "snowflake_database" "S_PROD_EBIZ" {
 
 
 resource "snowflake_user" "NI_Test" {
-  provider = snowflake.security_admin
+  # provider = snowflake.security_admin
   name         = "NI_Test"
   login_name   = "NI_Test"
   comment      = "A NI Test user of snowflake."
   password     = "Changeafterlogin"
   disabled     = false
   display_name = "NI_Test"
-  email        = "arnab.mondal@ni.com"
+  email        = "arnavm014@gmail.com"
   first_name   = "NI"
   last_name    = "Test"
 
   default_warehouse = "S_PROD_WH"
   default_role      = "FR_S_PROD_ADMIN"
-  must_change_password = false
+  must_change_password = true
 }
 
 resource "snowflake_warehouse" "S_PROD_WH" {
@@ -93,7 +93,7 @@ resource "snowflake_role_grants" "FR_S_PROD_EBIZ_ENGINEER_GRANTS" {
   ]
 
   users = [
-    snowflake_user.NI_Test.name,
+    snowflake_user.NI_Test.login_name,
   ]
 }
 
@@ -105,7 +105,7 @@ resource "snowflake_role_grants" "FR_S_PROD_ADMIN_GRANTS" {
   ]
 
   users = [
-    snowflake_user.NI_Test.name,
+    snowflake_user.NI_Test.login_name,
   ]
 }
 
@@ -146,7 +146,7 @@ resource "snowflake_role_grants" "AR_S_PROD_WH_GRANTS" {
 }
 
 resource "snowflake_database_grant" "S_PROD_EBIZ_GRANT" {
-  provider = snowflake.security_admin
+  # provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
 
   privilege = "OWNERSHIP"
@@ -156,7 +156,7 @@ resource "snowflake_database_grant" "S_PROD_EBIZ_GRANT" {
 }
 
 resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_ALL" {
-  provider = snowflake.security_admin
+  # provider = snowflake.security_admin
   warehouse_name = snowflake_warehouse.S_PROD_WH.name
   privilege      = "OWNERSHIP"
 
@@ -188,7 +188,7 @@ resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
 }
 
 resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
-  provider = snowflake.security_admin
+  # provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.STAGE.name
 
@@ -207,7 +207,7 @@ resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
 }
 
 resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
-  provider = snowflake.security_admin
+  # provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.PSA.name
 
