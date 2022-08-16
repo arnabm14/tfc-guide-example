@@ -40,14 +40,12 @@ resource "snowflake_schema" "STAGE" {
   name     = "STAGE"
   comment  = "Staging schema"
 
-  data_retention_days = 1
 }
 
 resource "snowflake_schema" "PSA" {
   database = snowflake_database.S_PROD_EBIZ.name
   name     = "PSA"
   comment  = "Persistent staging schema"
-  data_retention_days = 1
 }
 
 
