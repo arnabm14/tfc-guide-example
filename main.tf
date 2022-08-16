@@ -51,23 +51,6 @@ resource "snowflake_schema" "PSA" {
 }
 
 
-resource "snowflake_user" "NI_Test" {
-  # provider = snowflake.security_admin
-  name         = "NI_Test"
-  login_name   = "NI_Test"
-  comment      = "A NI Test user of snowflake."
-  password     = "Changeafterlogin"
-  disabled     = false
-  display_name = "NI_Test"
-  email        = "arnavm014@gmail.com"
-  first_name   = "NI"
-  last_name    = "Test"
-
-  default_warehouse = "S_PROD_WH"
-  default_role      = "FR_S_PROD_ADMIN"
-  must_change_password = true
-}
-
 resource "snowflake_warehouse" "S_PROD_WH" {
   name           = "S_PROD_WH"
   comment        = "Production warehouse"
@@ -75,56 +58,6 @@ resource "snowflake_warehouse" "S_PROD_WH" {
   auto_suspend = 60
   initially_suspended = true
 }
-
-
-resource "snowflake_role" "DR_S_PROD_ADMIN" {
-  # provider = snowflake.security_admin
-  name    = "DR_S_PROD_ADMIN"
-  comment = "All priviledges on S_PROD_{SOURCE}"
-}
-
-resource "snowflake_role" "FR_S_PROD_ADMIN" {
-  # provider = snowflake.security_admin
-  name    = "FR_S_PROD_ADMIN"
-  comment = "Inherit priviledges from DR_S_PROD_ADMIN,AR_S_PROD_WH_ADMIN and FR_S_PROD_EBIZ_ENGINEER"
-}
-
-resource "snowflake_role" "AR_S_PROD_WH_ADMIN" {
-  # provider = snowflake.security_admin
-  name    = "AR_S_PROD_WH_ADMIN"
-  comment = "All priviledges on S_PROD_WH"
-}
-resource "snowflake_role" "FR_S_PROD_EBIZ_ENGINEER" {
-  # provider = snowflake.security_admin
-  name    = "FR_S_PROD_EBIZ_ENGINEER"
-  comment = "Inherits from DR_S_PROD_EBIZ_RW"
-}
-
-resource "snowflake_role" "DR_S_PROD_EBIZ_RW" {
-  # provider = snowflake.security_admin
-  name    = "DR_S_PROD_EBIZ_RW"
-  comment = "All priviledges on PSA and Stage"
-}
-
-resource "snowflake_role" "DR_S_PROD_EBIZ_RO" {
-  # provider = snowflake.security_admin
-  name    = "DR_S_PROD_EBIZ_RO"
-  comment = "Select priviledges on PSA and Stage"
-}
-
-resource "snowflake_role" "FR_S_PROD_EBIZ_ANALYST" {
-  # provider = snowflake.security_admin
-  name    = "FR_S_PROD_EBIZ_ANALYST"
-  comment = "Inherits from DR_S_PROD_EBIZ_RO and AR_S_PROD_WH"
-}
-
-resource "snowflake_role" "AR_S_PROD_WH" {
-  # provider = snowflake.security_admin
-  name    = "AR_S_PROD_WH"
-  comment = "Select priviledges on S_PROD_WH"
-}
-
-
 
 resource "snowflake_role_grants" "DR_S_PROD_ADMIN_GRANTS" {
   role_name = snowflake_role.DR_S_PROD_ADMIN.name
@@ -283,8 +216,76 @@ resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
 }
 
 
-# provider "snowflake" {
-#   alias = "security_admin"
-#   role="SECURITYADMIN"
+provider "snowflake" {
+  alias = "security_admin"
+  role="SECURITYADMIN"
   
-# }
+}
+
+
+resource "snowflake_user" "NI_Test" {
+  provider = snowflake.security_admin
+  name         = "NI_Test"
+  login_name   = "NI_Test"
+  comment      = "A NI Test user of snowflake."
+  password     = "Changeafterlogin"
+  disabled     = false
+  display_name = "NI_Test"
+  email        = "arnavm014@gmail.com"
+  first_name   = "NI"
+  last_name    = "Test"
+
+  default_warehouse = "S_PROD_WH"
+  default_role      = "FR_S_PROD_ADMIN"
+  must_change_password = true
+}
+
+
+
+resource "snowflake_role" "DR_S_PROD_ADMIN" {
+  provider = snowflake.security_admin
+  name    = "DR_S_PROD_ADMIN"
+  comment = "All priviledges on S_PROD_{SOURCE}"
+}
+
+resource "snowflake_role" "FR_S_PROD_ADMIN" {
+  provider = snowflake.security_admin
+  name    = "FR_S_PROD_ADMIN"
+  comment = "Inherit priviledges from DR_S_PROD_ADMIN,AR_S_PROD_WH_ADMIN and FR_S_PROD_EBIZ_ENGINEER"
+}
+
+resource "snowflake_role" "AR_S_PROD_WH_ADMIN" {
+  provider = snowflake.security_admin
+  name    = "AR_S_PROD_WH_ADMIN"
+  comment = "All priviledges on S_PROD_WH"
+}
+resource "snowflake_role" "FR_S_PROD_EBIZ_ENGINEER" {
+  provider = snowflake.security_admin
+  name    = "FR_S_PROD_EBIZ_ENGINEER"
+  comment = "Inherits from DR_S_PROD_EBIZ_RW"
+}
+
+resource "snowflake_role" "DR_S_PROD_EBIZ_RW" {
+  provider = snowflake.security_admin
+  name    = "DR_S_PROD_EBIZ_RW"
+  comment = "All priviledges on PSA and Stage"
+}
+
+resource "snowflake_role" "DR_S_PROD_EBIZ_RO" {
+  provider = snowflake.security_admin
+  name    = "DR_S_PROD_EBIZ_RO"
+  comment = "Select priviledges on PSA and Stage"
+}
+
+resource "snowflake_role" "FR_S_PROD_EBIZ_ANALYST" {
+  provider = snowflake.security_admin
+  name    = "FR_S_PROD_EBIZ_ANALYST"
+  comment = "Inherits from DR_S_PROD_EBIZ_RO and AR_S_PROD_WH"
+}
+
+resource "snowflake_role" "AR_S_PROD_WH" {
+  provider = snowflake.security_admin
+  name    = "AR_S_PROD_WH"
+  comment = "Select priviledges on S_PROD_WH"
+}
+
