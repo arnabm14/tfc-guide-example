@@ -47,9 +47,9 @@ resource "snowflake_user" "NI_Test" {
   first_name   = "NI"
   last_name    = "Test"
 
-  default_warehouse = snowflake_warehouse.S_PROD_WH.name
-  default_role      = snowflake_role.FR_S_PROD_ADMIN.name
-  must_change_password = true
+  default_warehouse = S_PROD_WH
+  default_role      = "FR_S_PROD_ADMIN"
+  must_change_password = false
 }
 
 resource "snowflake_warehouse" "S_PROD_WH" {
