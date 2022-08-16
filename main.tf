@@ -37,7 +37,7 @@ resource "snowflake_database" "S_PROD_EBIZ" {
 
 resource "snowflake_schema" "STAGE" {
   database = snowflake_database.S_PROD_EBIZ.name
-  name     = "STAGE_Final"
+  name     = "STAGE"
   comment  = "Staging schema"
 
   data_retention_days = 1
@@ -45,7 +45,7 @@ resource "snowflake_schema" "STAGE" {
 
 resource "snowflake_schema" "PSA" {
   database = snowflake_database.S_PROD_EBIZ.name
-  name     = "PSA_final"
+  name     = "PSA"
   comment  = "Persistent staging schema"
   data_retention_days = 1
 }
@@ -60,6 +60,7 @@ resource "snowflake_warehouse" "S_PROD_WH" {
 }
 
 resource "snowflake_role_grants" "DR_S_PROD_ADMIN_GRANTS" {
+  provider = snowflake.security_admin
   role_name = snowflake_role.DR_S_PROD_ADMIN.name
 
   roles = [
@@ -73,6 +74,7 @@ resource "snowflake_role_grants" "DR_S_PROD_ADMIN_GRANTS" {
 }
 
 resource "snowflake_role_grants" "AR_S_PROD_WH_ADMIN_GRANTS" {
+  provider = snowflake.security_admin
   role_name = snowflake_role.AR_S_PROD_WH_ADMIN.name
 
   roles = [
@@ -111,6 +113,7 @@ resource "snowflake_role_grants" "FR_S_PROD_ADMIN_GRANTS" {
 }
 
 resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RW_GRANTS" {
+  provider = snowflake.security_admin
   role_name = snowflake_role.DR_S_PROD_EBIZ_RW.name
 
   roles = [
@@ -123,6 +126,7 @@ resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RW_GRANTS" {
 }
 
 resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RO_GRANTS" {
+  provider = snowflake.security_admin
   role_name = snowflake_role.DR_S_PROD_EBIZ_RO.name
 
   roles = [
@@ -135,6 +139,8 @@ resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RO_GRANTS" {
 }
 
 resource "snowflake_role_grants" "AR_S_PROD_WH_GRANTS" {
+  provider = snowflake.security_admin
+  
   role_name = snowflake_role.AR_S_PROD_WH.name
 
   roles = [
@@ -169,6 +175,7 @@ resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_ALL" {
 }
 
 resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_USAGE" {
+  provider = snowflake.security_admin
   warehouse_name = snowflake_warehouse.S_PROD_WH.name
   privilege      = "USAGE"
 
@@ -180,6 +187,7 @@ resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_USAGE" {
 }
 
 resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
+  provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.STAGE.name
 
@@ -189,7 +197,7 @@ resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
 }
 
 resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
-  #provider = snowflake.security_admin
+  provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.STAGE.name
 
@@ -199,6 +207,7 @@ resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
 }
 
 resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
+  provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.PSA.name
 
@@ -208,7 +217,7 @@ resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
 }
 
 resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
-  #provider = snowflake.security_admin
+  provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.PSA.name
 
