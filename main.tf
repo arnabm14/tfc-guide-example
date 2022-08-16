@@ -37,7 +37,7 @@ resource "snowflake_database" "S_PROD_EBIZ" {
 
 resource "snowflake_schema" "STAGE" {
   database = snowflake_database.S_PROD_EBIZ.name
-  name     = "STAGE"
+  name     = "STAGE_Final"
   comment  = "Staging schema"
 
   data_retention_days = 1
@@ -45,7 +45,7 @@ resource "snowflake_schema" "STAGE" {
 
 resource "snowflake_schema" "PSA" {
   database = snowflake_database.S_PROD_EBIZ.name
-  name     = "PSA"
+  name     = "PSA_final"
   comment  = "Persistent staging schema"
   data_retention_days = 1
 }
@@ -189,11 +189,11 @@ resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
 }
 
 resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
-  provider = snowflake.security_admin
+  #provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.STAGE.name
 
-  privilege = "OWNERSHIP"
+  privilege = "MODIFY"
   roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
   with_grant_option = true
 }
@@ -208,11 +208,11 @@ resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
 }
 
 resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
-  provider = snowflake.security_admin
+  #provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.PSA.name
 
-  privilege = "OWNERSHIP"
+  privilege = "MODIFY"
   roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
   with_grant_option = true
 }
