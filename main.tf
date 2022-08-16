@@ -35,6 +35,22 @@ resource "snowflake_database" "S_PROD_EBIZ" {
 }
 
 
+resource "snowflake_schema" "STAGE" {
+  database = snowflake_database.S_PROD_EBIZ.name
+  name     = "STAGE"
+  comment  = "Staging schema"
+
+  data_retention_days = 1
+}
+
+resource "snowflake_schema" "PSA" {
+  database = snowflake_database.S_PROD_EBIZ.name
+  name     = "PSA"
+  comment  = "Persistent staging schema"
+  data_retention_days = 1
+}
+
+
 resource "snowflake_user" "NI_Test" {
   # provider = snowflake.security_admin
   name         = "NI_Test"
@@ -60,183 +76,6 @@ resource "snowflake_warehouse" "S_PROD_WH" {
   initially_suspended = true
 }
 
-resource "snowflake_role_grants" "DR_S_PROD_ADMIN_GRANTS" {
-  role_name = snowflake_role.DR_S_PROD_ADMIN.name
-
-  roles = [
-    snowflake_role.FR_S_PROD_ADMIN.name,
-  ]
-
-  # users = [
-  #   "NI_Test",
-  # ]
-  
-}
-
-resource "snowflake_role_grants" "AR_S_PROD_WH_ADMIN_GRANTS" {
-  role_name = snowflake_role.AR_S_PROD_WH_ADMIN.name
-
-  roles = [
-    snowflake_role.FR_S_PROD_ADMIN.name,
-  ]
-
-  # users = [
-  #   "NI_Test",
-  # ]
-}
-
-resource "snowflake_role_grants" "FR_S_PROD_EBIZ_ENGINEER_GRANTS" {
-  role_name = snowflake_role.FR_S_PROD_EBIZ_ENGINEER.name
-
-  roles = [
-    snowflake_role.FR_S_PROD_ADMIN.name,
-  ]
-
-  users = [
-    snowflake_user.NI_Test.login_name,
-  ]
-}
-
-resource "snowflake_role_grants" "FR_S_PROD_ADMIN_GRANTS" {
-  role_name = snowflake_role.FR_S_PROD_ADMIN.name
-
-  roles = [
-    "SYSADMIN",
-  ]
-
-  users = [
-    snowflake_user.NI_Test.login_name,
-  ]
-}
-
-resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RW_GRANTS" {
-  role_name = snowflake_role.DR_S_PROD_EBIZ_RW.name
-
-  roles = [
-    snowflake_role.FR_S_PROD_EBIZ_ENGINEER.name,
-  ]
-
-  # users = [
-  #   "NI_Test",
-  # ]
-}
-
-resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RO_GRANTS" {
-  role_name = snowflake_role.DR_S_PROD_EBIZ_RO.name
-
-  roles = [
-    snowflake_role.FR_S_PROD_EBIZ_ANALYST.name,
-  ]
-
-  # users = [
-  #   "NI_Test",
-  # ]
-}
-
-resource "snowflake_role_grants" "AR_S_PROD_WH_GRANTS" {
-  role_name = snowflake_role.AR_S_PROD_WH.name
-
-  roles = [
-    snowflake_role.FR_S_PROD_EBIZ_ANALYST.name,
-  ]
-
-  # users = [
-  #   "NI_Test",
-  # ]
-}
-
-resource "snowflake_database_grant" "S_PROD_EBIZ_GRANT" {
-  # provider = snowflake.security_admin
-  database_name = snowflake_database.S_PROD_EBIZ.name
-
-  privilege = "OWNERSHIP"
-  roles     = [snowflake_role.DR_S_PROD_ADMIN.name,]
-
-  with_grant_option = true
-}
-
-resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_ALL" {
-  # provider = snowflake.security_admin
-  warehouse_name = snowflake_warehouse.S_PROD_WH.name
-  privilege      = "OWNERSHIP"
-
-  roles = [
-   snowflake_role.AR_S_PROD_WH_ADMIN.name,
-  ]
-
-  with_grant_option = true
-}
-
-resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_USAGE" {
-  warehouse_name = snowflake_warehouse.S_PROD_WH.name
-  privilege      = "USAGE"
-
-  roles = [
-    snowflake_role.AR_S_PROD_WH.name,
-  ]
-
-  with_grant_option = true
-}
-
-resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
-  database_name = snowflake_database.S_PROD_EBIZ.name
-  schema_name   = snowflake_schema.STAGE.name
-
-  privilege = "USAGE"
-  roles     = [snowflake_role.DR_S_PROD_EBIZ_RO.name, ]
-  with_grant_option = true
-}
-
-resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
-  # provider = snowflake.security_admin
-  database_name = snowflake_database.S_PROD_EBIZ.name
-  schema_name   = snowflake_schema.STAGE.name
-
-  privilege = "OWNERSHIP"
-  roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
-  with_grant_option = true
-}
-
-resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
-  database_name = snowflake_database.S_PROD_EBIZ.name
-  schema_name   = snowflake_schema.PSA.name
-
-  privilege = "USAGE"
-  roles     = [snowflake_role.DR_S_PROD_EBIZ_RO.name, ]
-  with_grant_option = true
-}
-
-resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
-  # provider = snowflake.security_admin
-  database_name = snowflake_database.S_PROD_EBIZ.name
-  schema_name   = snowflake_schema.PSA.name
-
-  privilege = "OWNERSHIP"
-  roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
-  with_grant_option = true
-}
-
-resource "snowflake_schema" "STAGE" {
-  database = snowflake_database.S_PROD_EBIZ.name
-  name     = "STAGE"
-  comment  = "Staging schema"
-
-  data_retention_days = 1
-}
-
-resource "snowflake_schema" "PSA" {
-  database = snowflake_database.S_PROD_EBIZ.name
-  name     = "PSA"
-  comment  = "Persistent staging schema"
-  data_retention_days = 1
-}
-
-
-# provider "snowflake" {
-#   alias = "security_admin"
-#   role="SECURITYADMIN"
-  
-# }
 
 resource "snowflake_role" "DR_S_PROD_ADMIN" {
   # provider = snowflake.security_admin
@@ -284,3 +123,168 @@ resource "snowflake_role" "AR_S_PROD_WH" {
   name    = "AR_S_PROD_WH"
   comment = "Select priviledges on S_PROD_WH"
 }
+
+
+
+# resource "snowflake_role_grants" "DR_S_PROD_ADMIN_GRANTS" {
+#   role_name = snowflake_role.DR_S_PROD_ADMIN.name
+
+#   roles = [
+#     snowflake_role.FR_S_PROD_ADMIN.name,
+#   ]
+
+#   # users = [
+#   #   "NI_Test",
+#   # ]
+  
+# }
+
+# resource "snowflake_role_grants" "AR_S_PROD_WH_ADMIN_GRANTS" {
+#   role_name = snowflake_role.AR_S_PROD_WH_ADMIN.name
+
+#   roles = [
+#     snowflake_role.FR_S_PROD_ADMIN.name,
+#   ]
+
+#   # users = [
+#   #   "NI_Test",
+#   # ]
+# }
+
+# resource "snowflake_role_grants" "FR_S_PROD_EBIZ_ENGINEER_GRANTS" {
+#   role_name = snowflake_role.FR_S_PROD_EBIZ_ENGINEER.name
+
+#   roles = [
+#     snowflake_role.FR_S_PROD_ADMIN.name,
+#   ]
+
+#   users = [
+#     snowflake_user.NI_Test.login_name,
+#   ]
+# }
+
+# resource "snowflake_role_grants" "FR_S_PROD_ADMIN_GRANTS" {
+#   role_name = snowflake_role.FR_S_PROD_ADMIN.name
+
+#   roles = [
+#     "SYSADMIN",
+#   ]
+
+#   users = [
+#     snowflake_user.NI_Test.login_name,
+#   ]
+# }
+
+# resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RW_GRANTS" {
+#   role_name = snowflake_role.DR_S_PROD_EBIZ_RW.name
+
+#   roles = [
+#     snowflake_role.FR_S_PROD_EBIZ_ENGINEER.name,
+#   ]
+
+#   # users = [
+#   #   "NI_Test",
+#   # ]
+# }
+
+# resource "snowflake_role_grants" "DR_S_PROD_EBIZ_RO_GRANTS" {
+#   role_name = snowflake_role.DR_S_PROD_EBIZ_RO.name
+
+#   roles = [
+#     snowflake_role.FR_S_PROD_EBIZ_ANALYST.name,
+#   ]
+
+#   # users = [
+#   #   "NI_Test",
+#   # ]
+# }
+
+# resource "snowflake_role_grants" "AR_S_PROD_WH_GRANTS" {
+#   role_name = snowflake_role.AR_S_PROD_WH.name
+
+#   roles = [
+#     snowflake_role.FR_S_PROD_EBIZ_ANALYST.name,
+#   ]
+
+#   # users = [
+#   #   "NI_Test",
+#   # ]
+# }
+
+# resource "snowflake_database_grant" "S_PROD_EBIZ_GRANT" {
+#   # provider = snowflake.security_admin
+#   database_name = snowflake_database.S_PROD_EBIZ.name
+
+#   privilege = "OWNERSHIP"
+#   roles     = [snowflake_role.DR_S_PROD_ADMIN.name,]
+
+#   with_grant_option = true
+# }
+
+# resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_ALL" {
+#   # provider = snowflake.security_admin
+#   warehouse_name = snowflake_warehouse.S_PROD_WH.name
+#   privilege      = "OWNERSHIP"
+
+#   roles = [
+#    snowflake_role.AR_S_PROD_WH_ADMIN.name,
+#   ]
+
+#   with_grant_option = true
+# }
+
+# resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_USAGE" {
+#   warehouse_name = snowflake_warehouse.S_PROD_WH.name
+#   privilege      = "USAGE"
+
+#   roles = [
+#     snowflake_role.AR_S_PROD_WH.name,
+#   ]
+
+#   with_grant_option = true
+# }
+
+# resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
+#   database_name = snowflake_database.S_PROD_EBIZ.name
+#   schema_name   = snowflake_schema.STAGE.name
+
+#   privilege = "USAGE"
+#   roles     = [snowflake_role.DR_S_PROD_EBIZ_RO.name, ]
+#   with_grant_option = true
+# }
+
+# resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
+#   # provider = snowflake.security_admin
+#   database_name = snowflake_database.S_PROD_EBIZ.name
+#   schema_name   = snowflake_schema.STAGE.name
+
+#   privilege = "OWNERSHIP"
+#   roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
+#   with_grant_option = true
+# }
+
+# resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
+#   database_name = snowflake_database.S_PROD_EBIZ.name
+#   schema_name   = snowflake_schema.PSA.name
+
+#   privilege = "USAGE"
+#   roles     = [snowflake_role.DR_S_PROD_EBIZ_RO.name, ]
+#   with_grant_option = true
+# }
+
+# resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
+#   # provider = snowflake.security_admin
+#   database_name = snowflake_database.S_PROD_EBIZ.name
+#   schema_name   = snowflake_schema.PSA.name
+
+#   privilege = "OWNERSHIP"
+#   roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
+#   with_grant_option = true
+# }
+
+
+# # provider "snowflake" {
+# #   alias = "security_admin"
+# #   role="SECURITYADMIN"
+  
+# # }
