@@ -253,7 +253,7 @@ resource "snowflake_user" "NI_Test" {
   name         = "NI_Test"
   login_name   = "NI_Test"
   comment      = "A NI Test user of snowflake."
-  password     = "Changeafterlogin"
+  password     = "ChangedAgain1"
   disabled     = false
   display_name = "NI_Test"
   email        = "arnavm014@gmail.com"
