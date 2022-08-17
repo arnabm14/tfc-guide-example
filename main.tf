@@ -86,6 +86,19 @@ resource "snowflake_role_grants" "AR_S_PROD_WH_ADMIN_GRANTS" {
   # ]
 }
 
+resource "snowflake_role_grants" "FR_S_PROD_EBIZ_ANALYST_GRANTS" {
+  provider = snowflake.security_admin
+  role_name = snowflake_role.FR_S_PROD_EBIZ_ANALYST.name
+
+  roles = [
+    snowflake_role.FR_S_PROD_ADMIN.name,
+  ]
+
+  users = [
+    "NI_Test",
+  ]
+}
+
 resource "snowflake_role_grants" "FR_S_PROD_EBIZ_ENGINEER_GRANTS" {
   provider = snowflake.security_admin
   role_name = snowflake_role.FR_S_PROD_EBIZ_ENGINEER.name
