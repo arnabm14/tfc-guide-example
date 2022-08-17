@@ -79,6 +79,7 @@ resource "snowflake_role_grants" "AR_S_PROD_WH_ADMIN_GRANTS" {
 
   roles = [
     snowflake_role.FR_S_PROD_ADMIN.name,
+    snowflake_role.FR_S_PROD_EBIZ_ENGINEER.name,
   ]
 
   # users = [
@@ -261,7 +262,7 @@ resource "snowflake_user" "NI_Test" {
 
   default_warehouse = "S_PROD_WH"
   default_role      = "FR_S_PROD_ADMIN"
-  must_change_password = true
+  must_change_password = false
 }
 
 
