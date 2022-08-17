@@ -214,7 +214,7 @@ resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.Staging.name
 
-  privilege = "MODIFY"
+  privilege = "OWNERSHIP"
   roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
   with_grant_option = true
 }
@@ -224,7 +224,7 @@ resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.PSA.name
 
-  privilege = "USAGE"
+  privilege = "OWNERSHIP"
   roles     = [snowflake_role.DR_S_PROD_EBIZ_RO.name, ]
   with_grant_option = true
 }
