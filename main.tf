@@ -224,7 +224,7 @@ resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.PSA.name
 
-  privilege = "OWNERSHIP"
+  privilege = "USAGE"
   roles     = [snowflake_role.DR_S_PROD_EBIZ_RO.name, ]
   with_grant_option = true
 }
@@ -234,7 +234,7 @@ resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
   database_name = snowflake_database.S_PROD_EBIZ.name
   schema_name   = snowflake_schema.PSA.name
 
-  privilege = "MODIFY"
+  privilege = "OWNERSHIP"
   roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
   with_grant_option = true
 }
