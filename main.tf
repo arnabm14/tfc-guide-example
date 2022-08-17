@@ -43,12 +43,12 @@ resource "snowflake_schema" "Staging" {
 
 }
 
-resource "snowflake_schema" "PSA" {
-  #provider = snowflake.security_admin
-  database = snowflake_database.S_PROD_EBIZ.name
-  name     = "PSA"
-  comment  = "Persistent staging schema"
-}
+# resource "snowflake_schema" "PSA" {
+#   #provider = snowflake.security_admin
+#   database = snowflake_database.S_PROD_EBIZ.name
+#   name     = "PSA"
+#   comment  = "Persistent staging schema"
+# }
 
 
 resource "snowflake_warehouse" "S_PROD_WH" {
@@ -92,7 +92,7 @@ resource "snowflake_role_grants" "FR_S_PROD_EBIZ_ANALYST_GRANTS" {
   role_name = snowflake_role.FR_S_PROD_EBIZ_ANALYST.name
 
   roles = [
-    snowflake_role.FR_S_PROD_ADMIN.name,
+    snowflake_role.FR_S_PROD_EBIZ_ENGINEER.name,
   ]
 
   users = [
@@ -220,25 +220,25 @@ resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
   with_grant_option = true
 }
 
-resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
-  provider = snowflake.security_admin
-  database_name = snowflake_database.S_PROD_EBIZ.name
-  schema_name   = snowflake_schema.PSA.name
+# resource "snowflake_schema_grant" "PSA_GRANT_SELECT" {
+#   provider = snowflake.security_admin
+#   database_name = snowflake_database.S_PROD_EBIZ.name
+#   schema_name   = snowflake_schema.PSA.name
 
-  privilege = "USAGE"
-  roles     = [snowflake_role.DR_S_PROD_EBIZ_RO.name, ]
-  with_grant_option = true
-}
+#   privilege = "USAGE"
+#   roles     = [snowflake_role.DR_S_PROD_EBIZ_RO.name, ]
+#   with_grant_option = true
+# }
 
-resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
-  provider = snowflake.security_admin
-  database_name = snowflake_database.S_PROD_EBIZ.name
-  schema_name   = snowflake_schema.PSA.name
+# resource "snowflake_schema_grant" "PSA_GRANT_ALL" {
+#   provider = snowflake.security_admin
+#   database_name = snowflake_database.S_PROD_EBIZ.name
+#   schema_name   = snowflake_schema.PSA.name
 
-  privilege = "OWNERSHIP"
-  roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
-  with_grant_option = true
-}
+#   privilege = "OWNERSHIP"
+#   roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
+#   with_grant_option = true
+# }
 
 
 provider "snowflake" {
