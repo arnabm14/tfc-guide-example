@@ -187,7 +187,7 @@ resource "snowflake_warehouse_grant" "S_PROD_WH_GRANT_USAGE" {
 resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
   provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
-  schema_name   = snowflake_schema.STAGE.name
+  schema_name   = snowflake_schema.Staging.name
 
   privilege = "USAGE"
   roles     = [snowflake_role.DR_S_PROD_EBIZ_RO.name, ]
@@ -197,7 +197,7 @@ resource "snowflake_schema_grant" "STAGE_GRANT_SELECT" {
 resource "snowflake_schema_grant" "STAGE_GRANT_ALL" {
   provider = snowflake.security_admin
   database_name = snowflake_database.S_PROD_EBIZ.name
-  schema_name   = snowflake_schema.STAGE.name
+  schema_name   = snowflake_schema.Staging.name
 
   privilege = "MODIFY"
   roles     = [snowflake_role.DR_S_PROD_EBIZ_RW.name, ]
