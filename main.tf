@@ -36,7 +36,7 @@ resource "snowflake_database" "S_PROD_EBIZ" {
 
 
 resource "snowflake_schema" "Staging" {
-  provider = snowflake.security_admin
+  #provider = snowflake.security_admin
   database = snowflake_database.S_PROD_EBIZ.name
   name     = "Staging"
   comment  = "Staging schema"
@@ -44,7 +44,7 @@ resource "snowflake_schema" "Staging" {
 }
 
 resource "snowflake_schema" "PSA" {
-  provider = snowflake.security_admin
+  #provider = snowflake.security_admin
   database = snowflake_database.S_PROD_EBIZ.name
   name     = "PSA"
   comment  = "Persistent staging schema"
