@@ -35,7 +35,7 @@ resource "snowflake_database" "S_PROD_EBIZ" {
 }
 
 
-resource "snowflake_schema" "STAGE" {
+resource "snowflake_schema" "Staging" {
   database = snowflake_database.S_PROD_EBIZ.name
   name     = "Staging"
   comment  = "Staging schema"
