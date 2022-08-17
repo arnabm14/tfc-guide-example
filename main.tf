@@ -30,12 +30,13 @@ provider "snowflake" {
 
 resource "snowflake_database" "S_PROD_EBIZ" {
   name= "S_PROD_EBIZ"
-  comment = "Production environemtn for EBIZ data source"
+  comment = "Production environemnt for EBIZ data source"
   data_retention_time_in_days = 1
 }
 
 
 resource "snowflake_schema" "Staging" {
+  provider = snowflake.security_admin
   database = snowflake_database.S_PROD_EBIZ.name
   name     = "Staging"
   comment  = "Staging schema"
@@ -43,6 +44,7 @@ resource "snowflake_schema" "Staging" {
 }
 
 resource "snowflake_schema" "PSA" {
+  provider = snowflake.security_admin
   database = snowflake_database.S_PROD_EBIZ.name
   name     = "PSA"
   comment  = "Persistent staging schema"
