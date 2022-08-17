@@ -93,7 +93,7 @@ resource "snowflake_role_grants" "FR_S_PROD_EBIZ_ENGINEER_GRANTS" {
   ]
 
   users = [
-    snowflake_user.NI_Test.login_name,
+    "NI_Test",
   ]
 }
 
@@ -106,7 +106,7 @@ resource "snowflake_role_grants" "FR_S_PROD_ADMIN_GRANTS" {
   ]
 
   users = [
-    snowflake_user.NI_Test.login_name,
+    "NI_Test",
   ]
 }
 
